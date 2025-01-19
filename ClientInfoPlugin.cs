@@ -35,14 +35,14 @@ namespace DNWS
       StringBuilder sb = new StringBuilder();
 
       IPEndPoint endpoint = IPEndPoint.Parse(request.getPropertyByKey("remoteendpoint"));
-      sb.Append("<html><body><pre>");
-      sb.AppendFormat("Client IP: {0}<br/>\n", endpoint.Address);
-      sb.AppendFormat("Client Port: {0}<br/>\n", endpoint.Port);
-      sb.AppendFormat("Browser Information: {0}<br/>\n", request.getPropertyByKey("user-agent").Trim());
-      sb.AppendFormat("Accept Language: {0}<br/>\n", request.getPropertyByKey("accept-language").Trim());
-      sb.AppendFormat("Accept Encoding: {0}<br/>\n", request.getPropertyByKey("accept-encoding").Trim());
-
-      sb.Append("</pre></body></html>");
+      sb.Append("<html><head> <style> div { margin: 10px; padding: 10px; border: 1px dotted black; } </style> </head><body>");
+      sb.Append("<html><h1>Client Info:</h1>");
+      sb.AppendFormat("<div><b>Client IP:</b> " + endpoint.Address + "<br/></div>" );
+      sb.AppendFormat("<div><b>Client Port:</b> " + endpoint.Port + "<br/></div>");
+      sb.AppendFormat("<div><b>Browser Information:</b> " + request.getPropertyByKey("user-agent").Trim() + "<br/></div>");
+      sb.AppendFormat("<div><b>Accept Language:</b> " + request.getPropertyByKey("accept-language").Trim() + "<br/></div>");
+      sb.AppendFormat("<div><b>Accept Encoding:</b> " + request.getPropertyByKey("accept-encoding").Trim() + "<br/></div>");
+      sb.Append("</body></html>");
 
       response = new HTTPResponse(200);
       response.body = Encoding.UTF8.GetBytes(sb.ToString());
